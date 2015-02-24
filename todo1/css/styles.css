@@ -1,0 +1,105 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+body{
+    /*color: #7F7E7E;*/
+    font-family: "Courier New", Courier, monospace;
+    font-size: 13px;
+    line-height: 20px;
+
+}
+
+body.home{
+    background-image: url("../img/m.jpg");
+    background-repeat: repeat;
+    background-position: left top;
+    background-attachment: scroll;
+}
+.container{
+    
+    width: 1200px;
+    height: 800px;
+    margin: 0 auto;
+/*    background: url("../img/cute-background.jpg");*/
+    background: white center no-repeat;
+}
+.top{
+    position: relative;
+    width: 100%;
+    background-color: buttonface;
+    height: 200px;
+    /*background-image: url("https://s-media-cache-ak0.pinimg.com/736x/85/b6/10/85b610f90165ad7a5423e9926fa3476f.jpg");*/
+    border-top: 5px solid white;
+}
+
+.logo{
+    position: absolute;
+    margin: 40px;
+}
+
+.logo1{
+    width: 208px;
+    height: 109px;
+    margin: -28px;
+    margin: -28px -28px -28px 450px;
+}
+.date{
+    position: absolute;
+    right: 10px ;
+    top: 10px;
+    background-color: hotpink;
+    border-radius: 3px;
+    color: white;
+}
+
+.menu{
+    position: absolute;
+    bottom: 0px;
+    width: 1160px;
+    padding: 20px;
+    background-color: #F0F8FF;
+    background-color: pink;
+    
+}
+
+.menu ul{
+    margin-left: 300px;
+}
+.menu ul li{
+    float: left;
+    list-style: outside none none;
+    border: 1px solid blueviolet;
+    margin: 0px;
+    padding: 3px;
+    background-color: #F0F8FF;
+    width: 134px;
+    height: 19px;
+    text-align: center;
+    border-radius: 19px;
+}
+
+ul li a{
+    text-decoration: none;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+ul li:hover{
+    background-color: lightcyan;
+}
+ul li:hover a{
+    color: black;
+    
+}
+.greeting{
+    float: right;
+    
+}
+
+table{
+    margin: 70px auto 0px;
+}
+.body{
+    
+}

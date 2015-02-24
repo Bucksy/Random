@@ -1,0 +1,1 @@
+{"firstName":"Pesho","lastName":"Georgiev","hobbies":{"hobby1":"Sports","hobby2":"Drinking"},"addresses":["Address1","Address2"]}
