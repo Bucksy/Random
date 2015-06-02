@@ -21,19 +21,19 @@ use app\models\Comment;
 
 class Post extends ActiveRecord{
 
-    
-//    public $id;
-//    public $title;
-//   public $description;
-//    public $created;
-//    public $userId;
+       //    public $id;
+       //    public $title;
+      //   public $description;
+     //    public $created;
+     //    public $userId;
 
-    //validation
+    //validation rules 
    public function rules() {
         return [
             //title , description - are required
            [['title', 'description'], 'required', 'message' => 'Please choose a title or description'],
             ['title' , 'string', 'min' => 3, 'max' => 20, 'message' => 'Too Short Title'],
+//            ['title', 'validateTitle'],
             ['description', 'string', 'min'=> 3, 'max' => 200, 'message' => 'Too Short or long description']
         ];
     }
@@ -52,13 +52,20 @@ class Post extends ActiveRecord{
     }
     
     public function getComments(){
-        return $this->hasMany(Comment::className(), ['post_id' => 'id']); //1 -> many , 1 - post -> many comments
+        return $this->hasMany(Comment::className(), ['post_id' => 'id']); //1 -> many , 1 - post -> many comments, post_id e na Comment klasa, id - Post klasa
     }
     
+
+    //many-to-many relation
     public function getTags(){
-        return $this->hasMany(Tag::className(), ['id' => 'tag_id'])
+        return $this->hasMany(Tag::className(), ['id' => 'tag_id']) 
                 ->viaTable('posts_tags', ['post_id' => 'id']);
     }
+    
+      /**
+       *@return string the name of the table associated with this ActiveRecord class.
+       *
+       */
     
     public static function tableName() {
         return 'posts';

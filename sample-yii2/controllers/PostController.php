@@ -23,6 +23,7 @@ use yii\data\Pagination;
 use yii\data\Sort;
 use app\models\Comment;
 use app\models\Tag;
+use app\models\PostForm;
 
 class PostController extends Controller {
     //get post by id 
@@ -76,12 +77,18 @@ class PostController extends Controller {
     
     public function actionCreate() {
         
-        $request = Yii::$app->request;
+//        $request = Yii::$app->request;
+        
+//        $tag  = new Tag();
+//        $tag->tag = 'cloud';
+//        $tag->save();
         
         //exit(var_dump($request->isPost));
         //get the data form Post 
         
-        $model = new Post();
+       
+//        $post = new Post();
+        //$post->title = 'Foo';
         // $get = $request->get('id');
         //exit(var_dump($get));
         // $post = $request->post(); //$_POST
@@ -92,40 +99,98 @@ class PostController extends Controller {
 //            exit(var_dump($request->post()));
 //        }
         
-        $tag = new Tag();
+        //Massive Assignment 
+//        $values = [
+//           'title' => 'James',
+//            'description' => 'james@example.com'
+//        ];
+//        
+//        $post = new Post();
+//        $post->attributes = $values;     
+//        $post->save();
           
-        $tags = Tag::find()->all();
-//        exit(var_dump($tags));
-
-        $tagsArr = [];
         
-        foreach ($tags as $value) {
-            //echo '<pre>' . print_r($value['tag'], true) . '</pre>';
-            $tagsArr[$value->id] = $value->tag;
-        }
+        $request = Yii::$app->request;
+        
+        //$post1 = Post::findOne(3);
+        //$tags = $post1->tags;
+       // echo '<pre>' . print_r($tags, true) . '</pre>';
        
+//        foreach ($tags as $value) {
+//            echo '<pre>' . print_r($value, true) . '</pre>';
+//        }
+        
+//         echo '<pre>' . print_r($tags, true) . '</pre>';
+//         exit;
+        
+          $post = new PostForm();
+          $tag = new Tag();
+        
+          $tags = Tag::find()->asArray(true)->all(); // fetch as an array of arrays
+
+//        echo $tags[0]->id;
+//        exit(var_dump($tags));
+//        $tags->id;
+       
+      // $tagsArr = [];
+//       echo '<pre>' . print_r($tags, true) . '</pre>';
+//      
+//       foreach ($tags as $value) {
+////            echo '<pre>' . print_r($value['tag'], true) . '</pre>';
+////            exit;
+//            $tagsArr[$value['id']] = $value['tag'];
+//        }
+        //$tagsList = $_POST[];
 //        exit(var_dump($tagsArr));
         
-        if ($model->load($request->post())) {//if we have post 
-            //exit('here!');
-            $postResult = $request->post()['Post'];
+        if ($post->load($request->post())) {//if we have post 
+          
+          $postResult = $request->post()['PostForm'];
+//          exit(var_dump($postResult['tag_list']));
+          
             //exit(var_dump($postResult));
-            $model->title = $postResult['title'];
-            $model->description = $postResult['description'];
-            $model->userId = 2;
+            //$tagResult = $request->post();
+           // echo '<pre>' . print_r($tagResult, true) . '</pre>';
+           // exit;
+//            exit;
+            //exit(var_dump($postResult));
+            //$tagResult = $request->tag()['Post'];
+           // exit(var_dump($postResult));
            
+            //$tag->tag = $tagsArr;
+            
             //$errors = $model->errors;
-            if($model->validate()){
-                $model->save();
-                return $this->redirect('?r=post/index', 302);
+            if($post->validate()){
+             // $postResult = $request->post()['PostForm'];   
+            $post->title = $postResult['title'];
+            $post->description = $postResult['description'];
+            $post->userId = 2;
+//            echo '<pre>' . print_r($post->tag_list, true) . '</pre>';
+//            exit;
+            $post->save();
+//            echo '<pre>' . print_r($post->id, true) . '</pre>';
+//            exit;
+             
+            //$tagsList = $_POST['Tag']['tag'];
+//            exit(var_dump($postResult['tag_list']));
+           
+            foreach ($postResult['tag_list'] as $value) {
+                echo '<pre>' . print_r($value['id'], true) . '</pre>';
+                exit;
+                $tag = new Tag();
+                $tag->tag = $value;
+                $tag->save();
+            }
+//               $post->link('posts', $tag);
+//               
+               return $this->redirect('?r=post/index', 302);
             }else{
-                return $this->render('create', ['model' => $model]);
+                return $this->render('create', ['model' => $post]);
                 //exit(var_dump($model->errors));
             }
-        
             //return $this->redirect('?r=post/index', 302);
         } else { // else if we have get 
-            return $this->render('create', ['model' => $model, 'tags' => $tagsArr , 'tag' => $tag]);
+            return $this->render('create', ['model' => $post, 'tags' => $tags , 'tag' => $tag]);
         }
         
         /* $model = new Post();

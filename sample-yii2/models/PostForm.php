@@ -12,7 +12,7 @@ class PostForm extends Model {
     public $description;
     public $created;
     public $userId;
-    
+ 
     /**
      *@return an array of validation  rules
      */
