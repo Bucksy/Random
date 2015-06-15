@@ -4,7 +4,8 @@ namespace app\models;
 
 use yii;
 use yii\base\Model;
-use yii\db\ActiveRecord;
+use yii\db\ActiveRecord; 
+use app\models\Post;
 
 class Tag extends ActiveRecord {
 
@@ -17,16 +18,26 @@ class Tag extends ActiveRecord {
     }
 
     //many-to-many relation
-//    public function getPosts() {
-//        return $this->hasMany(Post::className(), ['id' => 'post_id'])
-//                        ->viaTable('posts_tags', ['tag_id' => 'id']);
-//    }
-
-    /**
+    public function getPosts() {
+        return $this->hasMany(Post::className(), ['id' => 'post_id'])
+                         ->viaTable('posts_tags', ['tag_id' => 'id']);
+    }
+    
+    
+    //    public  function getPosts(){
+    //        return $this->hasMany(Post::className(), ['id' => 'post_id']);
+    //    }
+    //    
+    //    public function getPostTags(){
+    //        return $this->hasMany(Tag::className(), ['id' => 'tag_id'])
+    //            ->via('posts_tags');
+    //    }
+    
+     /**
      * @return string the name of the table associated with this ActiveRecord class.
      */
+    
     public static function tableName() {
         return 'tags';
     }
-
 }

@@ -1,21 +1,14 @@
 <?php
-
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
+use yii\grid\GridView;
+use yii\widgets\DetailView;
 
-$this->title = 'Share your thoughts: ';
-//echo $name;
-//echo $id;
-//echo '<pre>' . print_r($post->id, true) . '</pre>';
-//echo '<pre>' . print_r($post->title, true) . '</pre>';
-//echo '<pre>' . print_r($post->description, true) . '</pre>';
-//echo '<pre>' . print_r($post->created, true) . '</pre>';
-//echo '<pre>' . print_r($post->userId, true) . '</pre>';
-
-var_dump($tags);
+$this->title = 'Add Comment: ';
 ?>
-<h1>Post with title <?= $post->title?> : </h1>
-<table border="1">
+
+<!--<h1>Post with title <?php //echo $post->title ?> : </h1>-->
+<!--<table border="1">
     <tr>
         <td>ID</td>
         <td>Title</td>
@@ -23,24 +16,46 @@ var_dump($tags);
         <td>Created</td>
     </tr>
     <tr>
-        <td><?= $post->id?></td>
-        <td><?= $post->title?></td>
-        <td><?= $post->description?></td>
-        <td><?= $post->created?></td>
+        <td><?php// echo  $post->id ?></td>
+        <td><?php //echo  $post->title ?></td>
+        <td><?php //echo  $post->description ?></td>
+        <td><?php //echo  $post->created;?></td>
     </tr>
-</table>
+</table>-->
 
+<br/>
+<br/>
+<br/>
 
+<?php
+echo DetailView::widget([
+    'model' => $post,
+    'attributes' => [
+      'title',
+        'description',
+        'created:datetime',
+    ],
+]);
 
+foreach ($tags as $tag) {
+    echo DetailView::widget([
+        'model' => $tag,
+        'attributes' => [
+            'tag',
+        ],
+    ]);
+}
+
+?>
 <div class="post-form">
-    <h1><?= Html::encode($this->title)?></h1>
+    <h1><?= Html::encode($this->title) ?></h1>
     <?php
     $form = ActiveForm::begin();
     ?>
 
     <?php echo $form->field($comment, 'author'); ?>
-    <?= $form->field($comment, 'comment')->textarea();?>
-  
+    <?= $form->field($comment, 'comment')->textarea(); ?>
+
     <div class="form-group">
         <div class="col-lg-offset-1 col-lg-11">
             <?= Html::submitButton('Post', ['class' => 'btn btn-primary', 'name' => 'create-button']) ?>
@@ -48,35 +63,31 @@ var_dump($tags);
     </div>
 </div>
 
-<?php ActiveForm::end(); ?>
-<br/>
-<br/>
-<br/>
-
-<h1>Comments: </h1>
-
-<table border="1">
-    <tr>
-        <td><b>Author</b></td>
-        <td><b>Comment</b></td>
-        <td><b>Created at</b></td>
-    </tr>
+<?php ActiveForm::end();?>
 <?php
+if (empty($comments)) {
+    echo 'No comments or tags yet. Add comment or create tag';
+} else {
+    ?>
+    <div class="comment-entry">
+        <div class="comment-header">
+            <h1>Comments: </h1>
 
-foreach ($comments as $comment) {
-     echo '<tr>'
-    . '<td>'.$comment['author'].'</td>'
-    . '<td>'.$comment['comment'].'</td>'
-    . '<td>'.$comment['createdDate'].'</td>'
-    . '</tr>';    
-}
-
-?>
-</table>
-<div class="comment-entry">
-    <div class="comment-header">
-        
+                <?php
+                foreach ($comments as $comment) {
+                echo DetailView::widget([
+                    'model' => $comment,
+                    'attributes' => [
+                        'author',
+                        'comment',
+                        'createdDate:datetime',
+                    ],
+                ]);
+    }
+    ?>
+        </div>
     </div>
-</div>
-<?php
+<?php }
+
+
 

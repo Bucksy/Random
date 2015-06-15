@@ -26,18 +26,31 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
             'accessToken' => '101-token',
         ],
     ];
-
+ 
     /**
      * @inheritdoc
+     */
+    
+    /**
+     * Finds an identity by the given ID 
+     * @param string|integer $id the ID to be looked for.
+     * @return IndentityInterface|null the identity object that matches the given ID 
      */
     public static function findIdentity($id)
     {
         return isset(self::$users[$id]) ? new static(self::$users[$id]) : null;
     }
-
+   
     /**
      * @inheritdoc
      */
+    
+    /**
+     * Finds an identity by the given token. 
+     * @param string $token the token to be looked for
+     * @return IdentityInterface|null the identity object that matches the given token.
+     */
+    
     public static function findIdentityByAccessToken($token, $type = null)
     {
         foreach (self::$users as $user) {
@@ -48,13 +61,14 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
 
         return null;
     }
-
+   
     /**
      * Finds user by username
      *
      * @param  string      $username
      * @return static|null
      */
+    
     public static function findByUsername($username)
     {
         foreach (self::$users as $user) {
@@ -77,6 +91,7 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
     /**
      * @inheritdoc
      */
+    
     public function getAuthKey()
     {
         return $this->authKey;
@@ -85,11 +100,12 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
     /**
      * @inheritdoc
      */
+    
     public function validateAuthKey($authKey)
     {
         return $this->authKey === $authKey;
     }
-
+    
     /**
      * Validates password
      *

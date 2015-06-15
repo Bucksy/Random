@@ -15,17 +15,25 @@ use app\models\Country;
 
 class SiteController extends Controller
 {
+    /*
+     * Access Control Filter is a simple authorization method
+     * that is best used by applications that only need some simple access control.
+     * 
+     */
+    
     public function behaviors()
     {
         return [
             'access' => [
                 'class' => AccessControl::className(),
                 'only' => ['logout'],
+                
                 'rules' => [
-                    [
+                    [ 
+                        //Deny all POST requests 
                         'actions' => ['logout'],
                         'allow' => true,
-                        'roles' => ['@'],
+                        'roles' => ['@'], //allow authenticated users 
                     ],
                 ],
             ],
@@ -37,6 +45,7 @@ class SiteController extends Controller
             ],
         ];
     }
+   
 
     public function actions()
     {

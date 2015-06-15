@@ -16,6 +16,7 @@ class PostForm extends Model {
     /**
      *@return an array of validation  rules
      */
+    
     public function rules(){
         
         return [
