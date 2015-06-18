@@ -46,8 +46,6 @@ $posts = $dataProvider->getModels();
 //    ]
 //]);
 
-
-
 //combine two column widget in one :)
 echo GridView::widget([
     'dataProvider' => $dataProvider,

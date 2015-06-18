@@ -64,6 +64,7 @@ foreach ($tags as $tag) {
 </div>
 
 <?php ActiveForm::end();?>
+
 <?php
 if (empty($comments)) {
     echo 'No comments or tags yet. Add comment or create tag';

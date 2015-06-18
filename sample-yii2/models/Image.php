@@ -2,8 +2,8 @@
 
 namespace app\models;
 
+use Yii;
 use yii\base\Model;
-use yii\web\UploadedFile;
 use yii\db\ActiveRecord;
 use app\models\Post;
 
@@ -26,8 +26,9 @@ class Image extends ActiveRecord {
     
     public function rules() {
         return [
-            [['file'], 'file'],
-            [['image'], 'string', 'max' => 100]
+            [['file'], 'file', 'maxFiles' => 10],
+            [['image'], 'string', 'max' => 100],
+            [['caption'], 'string', 'max' => 200]
         ];
     }
     
@@ -36,10 +37,9 @@ class Image extends ActiveRecord {
             'file' => 'Images',
         ];
     }
-
+   
     //TODO 
     //Relation 1-many , 1-1
-
     public function getPost() {
         return $this->hasOne(Post::className(), ['id' => 'post_id']);
     }

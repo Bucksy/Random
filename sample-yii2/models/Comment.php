@@ -8,12 +8,6 @@ use app\models\Post;
 
 class Comment extends ActiveRecord{
     
-//    private $id;
-//    public $author;
-//    public $comment;
-//    public $createdDate;
-//    public $postId;
-    
     public function rules() {
         return [
             ['author', 'required', 'message' => 'Please choose a author name'],
@@ -39,4 +33,5 @@ class Comment extends ActiveRecord{
     public static function tableName() {
         return 'comments';
     }
+    
 }

@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\ArrayHelper;
+
 //use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
@@ -10,7 +11,6 @@ use yii\helpers\ArrayHelper;
 /* @var $model app\models\LoginForm */
 
 $this->title = 'Create a Post';
-//echo $createdPost;
 ?>
 <?php
 //var_dump($tags);
@@ -20,13 +20,11 @@ $this->title = 'Create a Post';
 //}
 ?>
 <?php
-
 //exit(var_dump($uploadFile));
 
 if ($model->errors) {
     var_dump($model->errors);
 }
-
 ?>
 <div class="post-form">
     <h1><?= Html::encode($this->title); ?></h1>
@@ -37,19 +35,18 @@ if ($model->errors) {
     <div class="row">
         <div class="col-lg-5">
             <?php echo $form->field($model, 'title'); ?>
-            
+
             <?php echo $form->field($model, 'description')->textarea(); ?>
+
+            <?php echo $form->field($uploadFile, 'file[]')->fileInput(['multiple' => true]); ?>
             
-            <?php echo $form->field($uploadFile, 'file')->fileInput(); ?>
-            
+            <?php echo $form->field($uploadFile, 'caption'); ?>
+
             <?php $tags = ArrayHelper::map($tags, 'id', 'tag');
-                      
-                  echo $form->field($tag, 'tag')->checkboxList($tags);?>
+                  echo $form->field($tag, 'tag')->checkboxList($tags);
+            ?>
         </div>
     </div>
-    <?php
-    //echo $form->field($tag, 'tag')->checkboxList(['AAA'=>'Bottle',2=>'das',3=>'Joro']);
-    ?>
     <div class="form-group">
         <div class="col-lg-offset-1 col-lg-11">
             <?= Html::submitButton('Create Post', ['class' => 'btn btn-primary', 'name' => 'create-button']) ?>
