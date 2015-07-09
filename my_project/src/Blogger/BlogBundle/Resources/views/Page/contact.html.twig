@@ -1,0 +1,20 @@
+{% extends 'BloggerBlogBundle::layout.html.twig' %}
+
+{% block title %}Contact{% endblock %}
+{% block body %}
+    <header>Contact Page</header>
+   
+    {% for flashMessage in app.session.flashbag.get('blogger-notice') %}
+    <div class="blogger-notice">
+        {{ flashMessage }}
+    </div>
+    {% endfor %}
+
+    <p> Want to contact us? </p>
+    
+{{ form_start(form, {'attr': {'class': 'blogger'}}) }}
+{{ form_errors(form) }}
+{{ form_widget(form) }} 
+{{ form_end(form) }}
+
+{% endblock %}
