@@ -35,9 +35,9 @@ class PageController extends Controller{
     public function contactAction(Request $request){
       
         $enquiry = new Enquiry();
+        
         $form = $this->createFormBuilder($enquiry)
                 ->add('name', 'text')
-                ->setMethod('POST') 
                 ->add('email', 'text')
                 ->add('subject', 'text')
                 ->add('body', 'text')
@@ -46,20 +46,24 @@ class PageController extends Controller{
         
         $form->handleRequest($request);
         
+        //Validation of form - isValid()
+        
         if ($form->isValid()) {
             $message = \Swift_Message::newInstance()
                     ->setSubject('Contact enquiry from symblog')
-                    ->setFrom('enquiries@symblog.co.uk')
-                    ->setTo('huen_ngo@abv.bg')
+                    ->setFrom('noreply@gmail.com')
+                    ->setTo($this->container->getParameter('blogger_blog.emails.contact_email'))
                     ->setBody($this->renderView('BloggerBlogBundle:Page:contactEmail.txt.twig', array('enquiry' => $enquiry)));
             
-             $this->get('mailer')->send($message);
-             $this->get('session')->setFlash('blogger-notice', 'Your contact enquiry was successfully sent. Thank you!');
-             
+            $this->get('mailer')->send($message);
+            $this->addFlash('blogger-notice', 'Your email have been send!');
+
             // Perform some action, such as sending an email
             // Redirect - This is important to prevent users re-posting
             // the form if they refresh the page
-            return $this->redirect($this->generateUrl('BloggerBlogBundle_contact'));
+            //return $this->redirect($this->generateUrl('BloggerBlogBundle_contact'));
+            
+            return $this->redirect('/app_dev.php/contact');
         }
   
         return $this->render('BloggerBlogBundle:Page:contact.html.twig', array(

@@ -43,6 +43,7 @@ class Enquiry{
         return $this->body;
     }
     
+    //Valid
     public static function loadValidatorMetadata(ClassMetaData $metadata){
        
         $metadata->addPropertyConstraint('name', new Assert\NotBlank());
